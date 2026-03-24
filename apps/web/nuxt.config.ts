@@ -23,6 +23,10 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
+  colorMode: {
+    preference: 'light',
+  },
+
   devServer: {
     port: Number.isFinite(localNuxtPort) ? localNuxtPort : 3000,
   },
@@ -50,7 +54,7 @@ export default defineNuxtConfig({
     url: process.env.SITE_URL || localSiteUrl,
     name: 'Reminders',
     description:
-      'Reminders — powered by Nuxt 4 and Cloudflare Workers.',
+      'Reminders — the free online reminder app for managing tasks, due dates, and priorities.',
     defaultLocale: 'en',
   },
 
