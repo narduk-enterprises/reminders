@@ -1,0 +1,10 @@
+{
+  "name": "@narduk-enterprises/eslint-config",
+  "version": "1.0.17",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./index.mjs",
+    "./config": "./config.mjs"
+  }
+}
