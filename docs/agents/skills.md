@@ -1,9 +1,9 @@
 # Skills Guide
 
 Agent skills are vendored into this repository so every runtime sees the same
-instructions from the checkout itself. The canonical tree is
-`.agents/skills/`; every agent-facing `skills` path is just a relative symlink
-back to that directory.
+instructions from the checkout itself. The canonical tree is `.agents/skills/`;
+every agent-facing `skills` path is just a relative symlink back to that
+directory.
 
 ## Architecture
 
@@ -83,13 +83,13 @@ description: Brief trigger-oriented summary
 
 ## Cross-Agent Compatibility
 
-| Agent       | Entry Path        | Resolves To         |
-| ----------- | ----------------- | ------------------- |
-| Antigravity | `.agent/skills`   | `../.agents/skills` |
-| Cursor      | `.cursor/skills`  | `../.agents/skills` |
-| Codex       | `.codex/skills`   | `../.agents/skills` |
-| Claude      | `.claude/skills`  | `../.agents/skills` |
-| GitHub      | `.github/skills`  | `../.agents/skills` |
+| Agent       | Entry Path       | Resolves To         |
+| ----------- | ---------------- | ------------------- |
+| Antigravity | `.agent/skills`  | `../.agents/skills` |
+| Cursor      | `.cursor/skills` | `../.agents/skills` |
+| Codex       | `.codex/skills`  | `../.agents/skills` |
+| Claude      | `.claude/skills` | `../.agents/skills` |
+| GitHub      | `.github/skills` | `../.agents/skills` |
 
 The symlink files themselves are committed so fresh clones and remote agents do
 not need any local bootstrap to discover the skills.

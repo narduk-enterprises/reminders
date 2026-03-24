@@ -27,14 +27,13 @@ export function useDatabase(event: H3Event): DrizzleD1Database<typeof schema> {
 
   const db = drizzle(d1, {
     schema,
-    logger:
-      import.meta.dev
-        ? {
-            logQuery(query, params) {
-              useLogger(event).child('D1').debug('sql', { query, params })
-            },
-          }
-        : undefined,
+    logger: import.meta.dev
+      ? {
+          logQuery(query, params) {
+            useLogger(event).child('D1').debug('sql', { query, params })
+          },
+        }
+      : undefined,
   })
   event.context._db = db
   return db
@@ -73,14 +72,13 @@ export function createAppDatabase<T extends Record<string, unknown>>(appSchema: 
 
     const db = drizzle(d1, {
       schema: appSchema,
-      logger:
-        import.meta.dev
-          ? {
-              logQuery(query, params) {
-                useLogger(event).child('D1').debug('sql', { query, params })
-              },
-            }
-          : undefined,
+      logger: import.meta.dev
+        ? {
+            logQuery(query, params) {
+              useLogger(event).child('D1').debug('sql', { query, params })
+            },
+          }
+        : undefined,
     })
     event.context._appDb = db
     return db

@@ -1,8 +1,8 @@
 ---
 description:
-  Reusable workflow for creating and building any new app from narduk-nuxt-template
-  in a fresh GitHub repository — covers provisioning, setup, agent build prompt
-  generation, and deployment
+  Reusable workflow for creating and building any new app from
+  narduk-nuxt-template in a fresh GitHub repository — covers provisioning,
+  setup, agent build prompt generation, and deployment
 ---
 
 # Create a New App from Template
@@ -94,8 +94,8 @@ wastes agent cycles.
 
 ## Step 5: Generate the Agent Build Prompt
 
-Use the template below to write a complete, self-contained build prompt for
-the coding agent. Fill in every `<placeholder>` before handing it off.
+Use the template below to write a complete, self-contained build prompt for the
+coding agent. Fill in every `<placeholder>` before handing it off.
 
 A good prompt has four sections:
 
@@ -118,7 +118,7 @@ For a reference example, see `.agents/workflows/build-reminders-app.md`.
 
 Copy and customize:
 
-```markdown
+````markdown
 # Role and Objective
 
 You are an expert Nuxt 4, Cloudflare Workers, and Vue developer dropped into a
@@ -126,6 +126,7 @@ freshly scaffolded monorepo based on `narduk-nuxt-template`. The app is called
 **<Display Name>** — <one sentence description of what the app does>.
 
 **Triple mission:**
+
 1. Build "<Display Name>" using Nuxt 4, Cloudflare D1, and Nuxt UI 4.
 2. Apply a full brand identity — make it stunning and distinctive.
 3. Report template friction in `audit_report.md`.
@@ -139,6 +140,7 @@ pnpm run validate
 pnpm run db:migrate
 pnpm --filter <app-name> run quality
 ```
+````
 
 All three must pass with zero errors and zero warnings before writing a single
 line of product code. Fix any pre-existing issues.
@@ -161,14 +163,15 @@ Create `apps/web/drizzle/0001_app_tables.sql` with the corresponding CREATE
 TABLE statements and indexes.
 
 After creating the migration, run:
+
 ```bash
 pnpm --filter <app-name> run db:migrate
 ```
 
 ### App Database Helper
 
-Create `apps/web/server/utils/database.ts` exporting `useAppDatabase(event)`.
-Do NOT name it `useDatabase` — that collides with the layer import.
+Create `apps/web/server/utils/database.ts` exporting `useAppDatabase(event)`. Do
+NOT name it `useDatabase` — that collides with the layer import.
 
 ### Zod Validation Schemas
 
@@ -180,14 +183,14 @@ Create `apps/web/server/utils/<feature>-schemas.ts` with:
 <Describe each Nitro endpoint: method, path, auth requirement, rate limit,
 validation, and expected response shape>
 
-Use `defineUserMutation`, `defineAdminMutation`, or `definePublicMutation`
-from `#layer/server/utils/mutation`. Use `withValidatedBody(schema.parse)` for
-all POST/PUT/PATCH bodies. Always use `#server/` aliases for imports.
+Use `defineUserMutation`, `defineAdminMutation`, or `definePublicMutation` from
+`#layer/server/utils/mutation`. Use `withValidatedBody(schema.parse)` for all
+POST/PUT/PATCH bodies. Always use `#server/` aliases for imports.
 
 ### Composables
 
-Create `apps/web/app/composables/use<Feature>.ts` for all client-side state
-and data fetching. Expose reactive state and CRUD methods. Never call `$fetch`
+Create `apps/web/app/composables/use<Feature>.ts` for all client-side state and
+data fetching. Expose reactive state and CRUD methods. Never call `$fetch`
 directly in page `<script setup>`.
 
 ### Pages
@@ -215,6 +218,7 @@ Run the `/generate-brand-identity` workflow
 decisions yourself.
 
 Brand direction:
+
 - **Mood:** <one word — e.g. calm, energetic, professional, playful>
 - **Colors:** <primary color direction>
 - **Typography:** <font style direction>
@@ -244,6 +248,7 @@ Brand direction:
 ## Mission 2: Template Audit
 
 Create `audit_report.md` answering:
+
 1. Did `pnpm run validate` pass out of the box?
 2. Did the D1 migration and wrangler binding work?
 3. Did layer inheritance work seamlessly?
@@ -256,6 +261,7 @@ Create `audit_report.md` answering:
 - Working <Display Name> app, zero errors, zero warnings.
 - Custom brand identity with logo, favicons, and theme.
 - `audit_report.md` with honest feedback.
+
 ```
 
 ---
@@ -279,8 +285,10 @@ run the workflow directly if it has been committed as a `.agents/workflows/`
 file:
 
 ```
+
 /<workflow-name>
-```
+
+````
 
 ### Other agents (Cursor, Codex, Claude)
 
@@ -295,7 +303,8 @@ checked out and can read / write files.
 2. Run quality checks locally:
    ```bash
    pnpm --filter <app-name> run quality
-   ```
+````
+
 3. Smoke-test the local dev server:
    ```bash
    doppler run --config dev -- pnpm run dev
@@ -344,8 +353,7 @@ pnpm run ship
 - [ ] Cloned and `pnpm install` run
 - [ ] `pnpm run validate` passes
 - [ ] `pnpm run db:migrate` passes
-- [ ] `pnpm --filter <app-name> run quality` passes (zero errors, zero
-      warnings)
+- [ ] `pnpm --filter <app-name> run quality` passes (zero errors, zero warnings)
 - [ ] Build prompt written and reviewed
 - [ ] Coding agent invoked
 - [ ] PR reviewed and merged

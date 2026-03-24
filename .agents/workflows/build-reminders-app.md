@@ -14,8 +14,8 @@ manage, and track reminders with due dates, priorities, and categories.
 
 **You have a triple mission:**
 
-1. **Build "Reminders"** — a fully functional reminder management app using
-   Nuxt 4, Cloudflare D1, and Nuxt UI 4.
+1. **Build "Reminders"** — a fully functional reminder management app using Nuxt
+   4, Cloudflare D1, and Nuxt UI 4.
 2. **Brand Identity & SEO Excellence** — make it stunning, distinctive, and
    highly discoverable.
 3. **Template Audit** — report friction, broken types, or tooling failures in
@@ -46,8 +46,8 @@ pnpm run db:migrate
 pnpm --filter web run quality
 ```
 
-All three must pass with zero errors and zero warnings before you write a
-single line of product code. Fix any pre-existing issues before proceeding.
+All three must pass with zero errors and zero warnings before you write a single
+line of product code. Fix any pre-existing issues before proceeding.
 
 Then read `AGENTS.md` and `tools/AGENTS.md`.
 
@@ -260,8 +260,8 @@ export default defineUserMutation(
 
 ### 1e. Composable
 
-Create `apps/web/app/composables/useReminders.ts` for all client-side state
-and data fetching. The composable should expose:
+Create `apps/web/app/composables/useReminders.ts` for all client-side state and
+data fetching. The composable should expose:
 
 - `reminders` — `Ref<Reminder[]>` populated via `useFetch`
 - `pending` — loading state
@@ -323,8 +323,8 @@ pnpm --filter web run quality
 
 Once the app is built and functional, run the `/generate-brand-identity`
 workflow (`.agents/workflows/generate-brand-identity.md`) end-to-end. **Do not
-ask any questions** — you are the creative director. Make all decisions
-yourself and execute the full pipeline.
+ask any questions** — you are the creative director. Make all decisions yourself
+and execute the full pipeline.
 
 Key brand direction for Reminders:
 

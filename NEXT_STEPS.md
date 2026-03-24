@@ -2,11 +2,11 @@
 
 This document gives two sets of instructions:
 
-1. **[Building the Reminders app](#1-building-the-reminders-app-with-github-coding-agents)** — how to
-   use a GitHub Copilot coding agent to implement the full reminders feature set
-   in this repository.
-2. **[Bootstrapping future apps from the template](#2-bootstrapping-future-apps-from-narduk-nuxt-template)** —
-   the repeatable workflow for provisioning a new repository from
+1. **[Building the Reminders app](#1-building-the-reminders-app-with-github-coding-agents)**
+   — how to use a GitHub Copilot coding agent to implement the full reminders
+   feature set in this repository.
+2. **[Bootstrapping future apps from the template](#2-bootstrapping-future-apps-from-narduk-nuxt-template)**
+   — the repeatable workflow for provisioning a new repository from
    `narduk-nuxt-template` and having a coding agent build it out.
 
 ---
@@ -15,18 +15,18 @@ This document gives two sets of instructions:
 
 ### What the agent will build
 
-The reminders app is a personal task and reminder manager running on
-Cloudflare Workers + D1. Key features:
+The reminders app is a personal task and reminder manager running on Cloudflare
+Workers + D1. Key features:
 
-| Area             | Scope                                                                      |
-| ---------------- | -------------------------------------------------------------------------- |
-| Auth             | Email/password login and registration (layer-provided)                     |
-| Database         | `reminders` table — id, userId, title, description, dueAt, priority, isCompleted, category |
-| API              | Full CRUD at `/api/reminders` with auth guards and rate limiting           |
-| Dashboard        | Paginated, filterable reminder list with inline complete/delete actions    |
-| Landing page     | Public marketing page replacing the "Coming Soon" placeholder              |
-| Brand identity   | Custom theme colors, logo, favicons, and Tailwind tokens                   |
-| SEO              | `useSeo()` + Schema.org on every page, OG images, sitemap                 |
+| Area           | Scope                                                                                      |
+| -------------- | ------------------------------------------------------------------------------------------ |
+| Auth           | Email/password login and registration (layer-provided)                                     |
+| Database       | `reminders` table — id, userId, title, description, dueAt, priority, isCompleted, category |
+| API            | Full CRUD at `/api/reminders` with auth guards and rate limiting                           |
+| Dashboard      | Paginated, filterable reminder list with inline complete/delete actions                    |
+| Landing page   | Public marketing page replacing the "Coming Soon" placeholder                              |
+| Brand identity | Custom theme colors, logo, favicons, and Tailwind tokens                                   |
+| SEO            | `useSeo()` + Schema.org on every page, OG images, sitemap                                  |
 
 ### Prerequisites
 
@@ -60,8 +60,8 @@ Before handing off to the coding agent, ensure:
 4. Assign the issue to **@github-copilot** (the Copilot coding agent).
 5. The agent will open a pull request implementing the full feature set.
 
-> **Tip:** You can also invoke the agent directly from a pull request or via
-> the GitHub Copilot chat sidebar in VS Code / GitHub.com by typing the prompt
+> **Tip:** You can also invoke the agent directly from a pull request or via the
+> GitHub Copilot chat sidebar in VS Code / GitHub.com by typing the prompt
 > directly.
 
 #### Option B — Antigravity / local agent
@@ -102,13 +102,12 @@ repository (Cursor, Codex, Claude, etc.).
 
 ## 2. Bootstrapping Future Apps from `narduk-nuxt-template`
 
-Use this workflow any time you want to create a brand-new app from the
-template.
+Use this workflow any time you want to create a brand-new app from the template.
 
 ### Step 1 — Provision the repository
 
-The control plane handles GitHub repo creation, D1 provisioning, Doppler
-spoke creation, and the initial deploy in one call:
+The control plane handles GitHub repo creation, D1 provisioning, Doppler spoke
+creation, and the initial deploy in one call:
 
 ```bash
 curl -X POST https://control-plane.nard.uk/api/fleet/provision \
@@ -129,8 +128,8 @@ curl https://control-plane.nard.uk/api/fleet/provision/<provisionId>
 ```
 
 Once complete the repository exists at
-`https://github.com/narduk-enterprises/<app-name>` and the app serves a
-"Coming Soon" page at `https://<app-name>.nard.uk`.
+`https://github.com/narduk-enterprises/<app-name>` and the app serves a "Coming
+Soon" page at `https://<app-name>.nard.uk`.
 
 ### Step 2 — Clone and install
 
@@ -148,8 +147,8 @@ pnpm run db:migrate
 pnpm --filter <app-name> run quality
 ```
 
-All three must pass with zero errors and zero warnings before handing off to
-the coding agent.
+All three must pass with zero errors and zero warnings before handing off to the
+coding agent.
 
 ### Step 4 — Generate the agent build prompt
 
@@ -162,14 +161,14 @@ It will:
    audit task.
 3. Copy the prompt to your clipboard via `pbcopy`.
 
-Alternatively, use `.agents/workflows/new-app-from-template.md` as a
-reusable template that you can fill in with your app-specific details.
+Alternatively, use `.agents/workflows/new-app-from-template.md` as a reusable
+template that you can fill in with your app-specific details.
 
 ### Step 5 — Hand off to the coding agent
 
-Use the same three options described in Section 1 (GitHub Copilot coding
-agent, Antigravity, or any compatible agent). Paste the generated build prompt
-as the agent's task.
+Use the same three options described in Section 1 (GitHub Copilot coding agent,
+Antigravity, or any compatible agent). Paste the generated build prompt as the
+agent's task.
 
 ### Step 6 — Review, migrate, and deploy
 
@@ -204,13 +203,13 @@ pnpm run update-layer -- --from ~/new-code/narduk-nuxt-template
 
 ## Reference Workflows
 
-| Workflow file                                        | Purpose                                              |
-| ---------------------------------------------------- | ---------------------------------------------------- |
-| `.agents/workflows/build-reminders-app.md`           | Build prompt for this specific reminders app         |
-| `.agents/workflows/new-app-from-template.md`         | Reusable build-prompt template for any new app       |
-| `.agents/workflows/generate-app-idea.md`             | Brainstorm ideas and auto-generate a build prompt    |
-| `.agents/workflows/generate-brand-identity.md`       | Apply full brand identity after the app is built     |
-| `.agents/workflows/score-repo.md`                    | Audit and score the repo across 19 architecture categories |
-| `.agents/workflows/sync-fleet.md`                    | Roll out template updates across all fleet apps      |
+| Workflow file                                  | Purpose                                                    |
+| ---------------------------------------------- | ---------------------------------------------------------- |
+| `.agents/workflows/build-reminders-app.md`     | Build prompt for this specific reminders app               |
+| `.agents/workflows/new-app-from-template.md`   | Reusable build-prompt template for any new app             |
+| `.agents/workflows/generate-app-idea.md`       | Brainstorm ideas and auto-generate a build prompt          |
+| `.agents/workflows/generate-brand-identity.md` | Apply full brand identity after the app is built           |
+| `.agents/workflows/score-repo.md`              | Audit and score the repo across 19 architecture categories |
+| `.agents/workflows/sync-fleet.md`              | Roll out template updates across all fleet apps            |
 
 For the full agent handbook, see `docs/agents/README.md`.

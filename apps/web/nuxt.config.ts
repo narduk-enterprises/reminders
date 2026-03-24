@@ -49,8 +49,7 @@ export default defineNuxtConfig({
   site: {
     url: process.env.SITE_URL || localSiteUrl,
     name: 'Reminders',
-    description:
-      'Reminders — powered by Nuxt 4 and Cloudflare Workers.',
+    description: 'Reminders — powered by Nuxt 4 and Cloudflare Workers.',
     defaultLocale: 'en',
   },
 
