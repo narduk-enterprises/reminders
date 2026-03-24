@@ -59,12 +59,7 @@ async function handleSubmit() {
       :ui="{ title: 'text-3xl sm:text-4xl' }"
     >
       <template #links>
-        <UButton
-          to="/reminders"
-          icon="i-lucide-arrow-left"
-          label="Back"
-          variant="ghost"
-        />
+        <UButton to="/reminders" icon="i-lucide-arrow-left" label="Back" variant="ghost" />
       </template>
     </UPageHeader>
 
@@ -99,18 +94,14 @@ async function handleSubmit() {
           </UFormField>
 
           <UFormField label="Due Date">
-            <UInput
-              v-model="dueDate"
-              type="datetime-local"
-              class="w-full"
-            />
+            <UInput v-model="dueDate" type="datetime-local" class="w-full" />
           </UFormField>
         </div>
 
         <UFormField v-if="categoriesData?.categories?.length" label="Category">
           <USelectMenu
             v-model="selectedCategoryId"
-            :items="categoriesData.categories.map(c => ({ label: c.name, value: c.id }))"
+            :items="categoriesData.categories.map((c) => ({ label: c.name, value: c.id }))"
             placeholder="Select a category"
             value-key="value"
             class="w-full"
@@ -129,11 +120,7 @@ async function handleSubmit() {
             color="primary"
             :loading="isSubmitting"
           />
-          <UButton
-            to="/reminders"
-            label="Cancel"
-            variant="ghost"
-          />
+          <UButton to="/reminders" label="Cancel" variant="ghost" />
         </div>
       </UForm>
     </UPageSection>

@@ -38,10 +38,7 @@ export const createReminderSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200, 'Title too long'),
   description: z.string().max(2000, 'Description too long').optional(),
   priority: reminderPrioritySchema.default('medium'),
-  dueDate: z
-    .string()
-    .datetime({ message: 'Invalid date format' })
-    .optional(),
+  dueDate: z.string().datetime({ message: 'Invalid date format' }).optional(),
   categoryId: z.string().uuid('Invalid category ID').optional(),
 })
 
@@ -50,11 +47,7 @@ export const updateReminderSchema = z.object({
   description: z.string().max(2000, 'Description too long').nullable().optional(),
   priority: reminderPrioritySchema.optional(),
   status: reminderStatusSchema.optional(),
-  dueDate: z
-    .string()
-    .datetime({ message: 'Invalid date format' })
-    .nullable()
-    .optional(),
+  dueDate: z.string().datetime({ message: 'Invalid date format' }).nullable().optional(),
   categoryId: z.string().uuid('Invalid category ID').nullable().optional(),
 })
 

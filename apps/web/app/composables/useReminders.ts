@@ -65,17 +65,11 @@ export function useReminders(queryParams: Ref<ReminderQueryParams>) {
 }
 
 export function useReminderStats() {
-  return useAsyncData(
-    'reminders-stats',
-    () => $fetch<StatsResponse>('/api/reminders/stats'),
-  )
+  return useAsyncData('reminders-stats', () => $fetch<StatsResponse>('/api/reminders/stats'))
 }
 
 export function useCategories() {
-  return useAsyncData(
-    'categories-list',
-    () => $fetch<CategoriesResponse>('/api/categories'),
-  )
+  return useAsyncData('categories-list', () => $fetch<CategoriesResponse>('/api/categories'))
 }
 
 export async function useToggleReminder(id: string) {

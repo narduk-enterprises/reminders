@@ -414,12 +414,7 @@ describe('reminders service', () => {
     it('queries for upcoming reminders within N days', async () => {
       mockAll.mockReturnValue([{ id: 'r-1' }])
 
-      const result = await getUpcomingReminders(
-        mockEvent,
-        'user-1',
-        7,
-        '2026-03-24T12:00:00.000Z',
-      )
+      const result = await getUpcomingReminders(mockEvent, 'user-1', 7, '2026-03-24T12:00:00.000Z')
       expect(result).toHaveLength(1)
     })
 

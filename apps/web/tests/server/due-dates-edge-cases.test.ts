@@ -112,15 +112,11 @@ describe('due-dates edge cases', () => {
     })
 
     it('handles far past date', () => {
-      expect(formatDueDate('2020-01-01T00:00:00.000Z', '2026-03-24T12:00:00.000Z')).toBe(
-        'Overdue',
-      )
+      expect(formatDueDate('2020-01-01T00:00:00.000Z', '2026-03-24T12:00:00.000Z')).toBe('Overdue')
     })
 
     it('yesterday shows as overdue', () => {
-      expect(formatDueDate('2026-03-23T12:00:00.000Z', '2026-03-24T12:00:00.000Z')).toBe(
-        'Overdue',
-      )
+      expect(formatDueDate('2026-03-23T12:00:00.000Z', '2026-03-24T12:00:00.000Z')).toBe('Overdue')
     })
   })
 

@@ -77,42 +77,30 @@ describe('due-dates', () => {
 
   describe('isDueWithinDays', () => {
     it('returns true for due date within range', () => {
-      expect(isDueWithinDays('2026-03-27T12:00:00.000Z', 7, '2026-03-24T12:00:00.000Z')).toBe(
-        true,
-      )
+      expect(isDueWithinDays('2026-03-27T12:00:00.000Z', 7, '2026-03-24T12:00:00.000Z')).toBe(true)
     })
 
     it('returns false for due date outside range', () => {
-      expect(isDueWithinDays('2026-04-01T12:00:00.000Z', 3, '2026-03-24T12:00:00.000Z')).toBe(
-        false,
-      )
+      expect(isDueWithinDays('2026-04-01T12:00:00.000Z', 3, '2026-03-24T12:00:00.000Z')).toBe(false)
     })
 
     it('returns false for past due dates', () => {
-      expect(isDueWithinDays('2026-03-20T12:00:00.000Z', 7, '2026-03-24T12:00:00.000Z')).toBe(
-        false,
-      )
+      expect(isDueWithinDays('2026-03-20T12:00:00.000Z', 7, '2026-03-24T12:00:00.000Z')).toBe(false)
     })
 
     it('returns true for due date exactly at boundary', () => {
       // 1 day = 86400000ms
-      expect(isDueWithinDays('2026-03-25T12:00:00.000Z', 1, '2026-03-24T12:00:00.000Z')).toBe(
-        true,
-      )
+      expect(isDueWithinDays('2026-03-25T12:00:00.000Z', 1, '2026-03-24T12:00:00.000Z')).toBe(true)
     })
 
     it('returns true for due date at start of range (now)', () => {
-      expect(isDueWithinDays('2026-03-24T12:00:00.000Z', 7, '2026-03-24T12:00:00.000Z')).toBe(
-        true,
-      )
+      expect(isDueWithinDays('2026-03-24T12:00:00.000Z', 7, '2026-03-24T12:00:00.000Z')).toBe(true)
     })
   })
 
   describe('formatDueDate', () => {
     it('returns "Overdue" for past dates', () => {
-      expect(formatDueDate('2026-03-20T12:00:00.000Z', '2026-03-24T12:00:00.000Z')).toBe(
-        'Overdue',
-      )
+      expect(formatDueDate('2026-03-20T12:00:00.000Z', '2026-03-24T12:00:00.000Z')).toBe('Overdue')
     })
 
     it('returns "Due today" for same-day dates', () => {

@@ -143,7 +143,11 @@ export async function listReminders(
   const whereClause = and(...conditions)
 
   const [totalResult, items] = await Promise.all([
-    db.select({ count: sql<number>`count(*)` }).from(reminders).where(whereClause).get(),
+    db
+      .select({ count: sql<number>`count(*)` })
+      .from(reminders)
+      .where(whereClause)
+      .get(),
     db
       .select()
       .from(reminders)
@@ -336,7 +340,9 @@ export async function bulkCompleteReminders(
     const result = await db
       .update(reminders)
       .set({ status: 'completed', completedAt: now, updatedAt: now })
-      .where(and(eq(reminders.id, id), eq(reminders.userId, userId), eq(reminders.status, 'pending')))
+      .where(
+        and(eq(reminders.id, id), eq(reminders.userId, userId), eq(reminders.status, 'pending')),
+      )
       .returning({ id: reminders.id })
     count += result.length
   }
@@ -385,10 +391,7 @@ export async function createCategory(
   return values as Category
 }
 
-export async function listCategories(
-  event: H3Event,
-  userId: string,
-): Promise<Category[]> {
+export async function listCategories(event: H3Event, userId: string): Promise<Category[]> {
   const db = useDatabase(event)
   return db
     .select()

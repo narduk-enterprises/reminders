@@ -77,12 +77,7 @@ function setFilter(status?: string, priority?: string) {
       :ui="{ title: 'text-3xl sm:text-4xl' }"
     >
       <template #links>
-        <UButton
-          to="/reminders/new"
-          icon="i-lucide-plus"
-          label="New Reminder"
-          color="primary"
-        />
+        <UButton to="/reminders/new" icon="i-lucide-plus" label="New Reminder" color="primary" />
       </template>
     </UPageHeader>
 
