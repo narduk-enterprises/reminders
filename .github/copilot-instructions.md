@@ -72,7 +72,7 @@ skills inventory.
   NOT point to `narduk-enterprises/narduk-nuxt-template`. If you are
   intentionally working on the template repository itself, that remote is
   expected.
-- **Secrets**: Use Doppler. Secrets are consumed via `process.env.SECRET_NAME`
+- **Secrets**: Use Doppler (project `prd_copilot`). Secrets are consumed via `process.env.SECRET_NAME`
   in `nuxt.config.ts`.
 - Run `/check-*` and `/audit-*` AI workflows (in `.agents/workflows/`) for
   extensive codebase audits.
