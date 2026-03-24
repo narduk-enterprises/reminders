@@ -1,0 +1,3 @@
+setup:
+  project: reminders
+  config: dev
