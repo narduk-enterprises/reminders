@@ -1,10 +1,5 @@
 import { eq, and } from 'drizzle-orm'
-
-const REMINDERS_WRITE_POLICY = {
-  namespace: 'reminders:write',
-  maxRequests: 60,
-  windowMs: 60_000,
-}
+import { REMINDERS_WRITE_POLICY } from '#server/utils/rate-limits'
 
 export default defineUserMutation(
   { rateLimit: REMINDERS_WRITE_POLICY },

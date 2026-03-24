@@ -34,12 +34,18 @@ export function useReminders() {
   const csrfFetch = useCsrfFetch()
 
   const {
-    data: reminders,
+    data: rawReminders,
     pending,
     refresh,
   } = useFetch<Reminder[]>('/api/reminders', {
     default: () => [] as Reminder[],
   })
+
+  const reminders = rawReminders as Ref<Reminder[]>
+
+  function setReminders(value: Reminder[]) {
+    reminders.value = value
+  }
 
   async function createReminder(data: CreateReminderData) {
     const optimistic: Reminder = {
@@ -55,30 +61,29 @@ export function useReminders() {
       updatedAt: new Date().toISOString(),
     }
 
-    ;(reminders as Ref<Reminder[]>).value = [...(reminders.value ?? []), optimistic]
+    setReminders([...reminders.value, optimistic])
 
     try {
       const created = await csrfFetch<Reminder>('/api/reminders', {
         method: 'POST',
         body: data,
       })
-      ;(reminders as Ref<Reminder[]>).value = (reminders.value ?? []).map((r) =>
-        r.id === optimistic.id ? created : r,
-      )
+      setReminders(reminders.value.map((r) => (r.id === optimistic.id ? created : r)))
       return created
     } catch (error) {
-      ;(reminders as Ref<Reminder[]>).value = (reminders.value ?? []).filter(
-        (r) => r.id !== optimistic.id,
-      )
+      setReminders(reminders.value.filter((r) => r.id !== optimistic.id))
       throw error
     }
   }
 
   async function updateReminder(id: number, data: UpdateReminderData) {
-    const previous = (reminders.value ?? []).find((r) => r.id === id)
+    const previous = reminders.value.find((r) => r.id === id)
     if (!previous) return
-    ;(reminders as Ref<Reminder[]>).value = (reminders.value ?? []).map((r) =>
-      r.id === id ? { ...r, ...data, updatedAt: new Date().toISOString() } : r,
+
+    setReminders(
+      reminders.value.map((r) =>
+        r.id === id ? { ...r, ...data, updatedAt: new Date().toISOString() } : r,
+      ),
     )
 
     try {
@@ -86,34 +91,30 @@ export function useReminders() {
         method: 'PATCH',
         body: data,
       })
-      ;(reminders as Ref<Reminder[]>).value = (reminders.value ?? []).map((r) =>
-        r.id === id ? updated : r,
-      )
+      setReminders(reminders.value.map((r) => (r.id === id ? updated : r)))
       return updated
     } catch (error) {
-      ;(reminders as Ref<Reminder[]>).value = (reminders.value ?? []).map((r) =>
-        r.id === id ? previous : r,
-      )
+      setReminders(reminders.value.map((r) => (r.id === id ? previous : r)))
       throw error
     }
   }
 
   async function deleteReminder(id: number) {
-    const previous = (reminders.value ?? []).find((r) => r.id === id)
-    ;(reminders as Ref<Reminder[]>).value = (reminders.value ?? []).filter((r) => r.id !== id)
+    const previous = reminders.value.find((r) => r.id === id)
+    setReminders(reminders.value.filter((r) => r.id !== id))
 
     try {
       await csrfFetch(`/api/reminders/${id}`, { method: 'DELETE' })
     } catch (error) {
       if (previous) {
-        ;(reminders as Ref<Reminder[]>).value = [...(reminders.value ?? []), previous]
+        setReminders([...reminders.value, previous])
       }
       throw error
     }
   }
 
   return {
-    reminders: reminders as Ref<Reminder[]>,
+    reminders,
     pending,
     refresh,
     createReminder,

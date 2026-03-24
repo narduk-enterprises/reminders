@@ -1,11 +1,6 @@
 import { eq, and } from 'drizzle-orm'
 import { updateReminderSchema } from '#server/utils/reminder-schemas'
-
-const REMINDERS_WRITE_POLICY = {
-  namespace: 'reminders:write',
-  maxRequests: 60,
-  windowMs: 60_000,
-}
+import { REMINDERS_WRITE_POLICY } from '#server/utils/rate-limits'
 
 export default defineUserMutation(
   {

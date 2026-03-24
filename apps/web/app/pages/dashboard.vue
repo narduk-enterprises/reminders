@@ -141,11 +141,7 @@ async function handleDelete(id: number) {
     </div>
 
     <div class="mb-6">
-      <UTabs
-        :items="filterTabs"
-        :model-value="activeFilter"
-        @update:model-value="activeFilter = $event as typeof activeFilter"
-      />
+      <UTabs v-model="activeFilter" :items="filterTabs" />
     </div>
 
     <div v-if="pending" class="flex justify-center py-12">
