@@ -1,5 +1,5 @@
 import type { H3Event } from 'h3'
-import { eq, and, desc, sql, like } from 'drizzle-orm'
+import { eq, and, desc, sql, like, isNotNull, lt, gte, lte } from 'drizzle-orm'
 import { reminders, categories } from '#server/database/app-schema'
 import type { Reminder, Category } from '#server/database/app-schema'
 import { useDatabase } from '#layer/server/utils/database'
@@ -175,7 +175,8 @@ export async function getOverdueReminders(
       and(
         eq(reminders.userId, userId),
         eq(reminders.status, 'pending'),
-        sql`${reminders.dueDate} IS NOT NULL AND ${reminders.dueDate} < ${ref}`,
+        isNotNull(reminders.dueDate),
+        lt(reminders.dueDate, ref),
       ),
     )
     .orderBy(desc(reminders.dueDate))
@@ -198,7 +199,8 @@ export async function getDueTodayReminders(
       and(
         eq(reminders.userId, userId),
         eq(reminders.status, 'pending'),
-        sql`${reminders.dueDate} IS NOT NULL AND substr(${reminders.dueDate}, 1, 10) = ${today}`,
+        isNotNull(reminders.dueDate),
+        sql`substr(${reminders.dueDate}, 1, 10) = ${today}`,
       ),
     )
     .orderBy(reminders.dueDate)
@@ -250,7 +252,8 @@ export async function getReminderStats(
       and(
         eq(reminders.userId, userId),
         eq(reminders.status, 'pending'),
-        sql`${reminders.dueDate} IS NOT NULL AND ${reminders.dueDate} < ${ref}`,
+        isNotNull(reminders.dueDate),
+        lt(reminders.dueDate, ref),
       ),
     )
     .get()
@@ -262,7 +265,8 @@ export async function getReminderStats(
       and(
         eq(reminders.userId, userId),
         eq(reminders.status, 'pending'),
-        sql`${reminders.dueDate} IS NOT NULL AND substr(${reminders.dueDate}, 1, 10) = ${today}`,
+        isNotNull(reminders.dueDate),
+        sql`substr(${reminders.dueDate}, 1, 10) = ${today}`,
       ),
     )
     .get()
@@ -308,7 +312,9 @@ export async function getUpcomingReminders(
       and(
         eq(reminders.userId, userId),
         eq(reminders.status, 'pending'),
-        sql`${reminders.dueDate} IS NOT NULL AND ${reminders.dueDate} >= ${ref} AND ${reminders.dueDate} <= ${futureDate}`,
+        isNotNull(reminders.dueDate),
+        gte(reminders.dueDate, ref),
+        lte(reminders.dueDate, futureDate),
       ),
     )
     .orderBy(reminders.dueDate)

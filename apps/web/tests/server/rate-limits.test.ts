@@ -47,7 +47,7 @@ describe('rate-limits', () => {
   })
 
   it('all policies have required fields', () => {
-    for (const [name, policy] of Object.entries(APP_RATE_LIMITS)) {
+    for (const [_name, policy] of Object.entries(APP_RATE_LIMITS)) {
       expect(policy).toHaveProperty('namespace')
       expect(policy).toHaveProperty('maxRequests')
       expect(policy).toHaveProperty('windowMs')

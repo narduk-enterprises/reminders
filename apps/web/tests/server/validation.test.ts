@@ -43,7 +43,7 @@ describe('validation schemas', () => {
   describe('PRIORITY_COLORS', () => {
     it('maps each priority to a hex color', () => {
       for (const p of REMINDER_PRIORITIES) {
-        expect(PRIORITY_COLORS[p]).toMatch(/^#[0-9a-fA-F]{6}$/)
+        expect(PRIORITY_COLORS[p]).toMatch(/^#[\da-f]{6}$/i)
       }
     })
   })

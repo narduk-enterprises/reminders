@@ -1,4 +1,21 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+import {
+  createReminder,
+  getReminder,
+  updateReminder,
+  deleteReminder,
+  toggleReminderComplete,
+  listReminders,
+  createCategory,
+  listCategories,
+  deleteCategory,
+  bulkCompleteReminders,
+  bulkDeleteReminders,
+  getReminderStats,
+  getOverdueReminders,
+  getDueTodayReminders,
+  getUpcomingReminders,
+} from '../../server/utils/reminders'
 
 // ─── Mocks ──────────────────────────────────────────────────
 
@@ -68,27 +85,12 @@ vi.mock('drizzle-orm', () => ({
   desc: vi.fn((col) => ({ type: 'desc', column: col })),
   sql: vi.fn(),
   like: vi.fn((_col, val) => ({ type: 'like', value: val })),
+  isNotNull: vi.fn((_col) => ({ type: 'isNotNull' })),
+  lt: vi.fn((_col, val) => ({ type: 'lt', value: val })),
+  gte: vi.fn((_col, val) => ({ type: 'gte', value: val })),
+  lte: vi.fn((_col, val) => ({ type: 'lte', value: val })),
   count: vi.fn(() => 'count(*)'),
 }))
-
-// Import after mocks
-import {
-  createReminder,
-  getReminder,
-  updateReminder,
-  deleteReminder,
-  toggleReminderComplete,
-  listReminders,
-  createCategory,
-  listCategories,
-  deleteCategory,
-  bulkCompleteReminders,
-  bulkDeleteReminders,
-  getReminderStats,
-  getOverdueReminders,
-  getDueTodayReminders,
-  getUpcomingReminders,
-} from '../../server/utils/reminders'
 
 const mockEvent = { context: { cloudflare: { env: { DB: {} } } } } as never
 
@@ -167,7 +169,7 @@ describe('reminders service', () => {
     })
 
     it('returns undefined when not found', async () => {
-      mockGet.mockReturnValue(undefined)
+      mockGet.mockReturnValue()
 
       const result = await getReminder(mockEvent, 'r-999', 'user-1')
       expect(result).toBeUndefined()
@@ -251,7 +253,7 @@ describe('reminders service', () => {
     })
 
     it('throws 404 when reminder not found', async () => {
-      mockGet.mockReturnValue(undefined)
+      mockGet.mockReturnValue()
 
       await expect(toggleReminderComplete(mockEvent, 'r-999', 'user-1')).rejects.toThrow(
         'Reminder not found.',

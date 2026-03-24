@@ -8,6 +8,7 @@ import {
   formatDueDate,
   sortByUrgency,
 } from '../../server/utils/due-dates'
+import { REMINDER_PRIORITIES } from '../../server/utils/validation'
 
 /**
  * Additional edge case tests for due-dates utility.
@@ -192,5 +193,3 @@ describe('due-dates edge cases', () => {
     })
   })
 })
-
-const REMINDER_PRIORITIES = ['low', 'medium', 'high', 'urgent'] as const

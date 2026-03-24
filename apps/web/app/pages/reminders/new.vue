@@ -16,14 +16,11 @@ const title = ref('')
 const description = ref('')
 const priority = ref('medium')
 const dueDate = ref('')
-const selectedCategoryId = ref<string | undefined>(undefined)
+const selectedCategoryId = ref<string | undefined>()
 const isSubmitting = ref(false)
 const errorMessage = ref('')
 
-const { data: categoriesData } = await useAsyncData(
-  'categories-form',
-  () => $fetch('/api/categories'),
-)
+const { data: categoriesData } = useCategories()
 
 const priorityOptions = [
   { label: 'Low', value: 'low' },
@@ -37,15 +34,12 @@ async function handleSubmit() {
   isSubmitting.value = true
 
   try {
-    await $fetch('/api/reminders', {
-      method: 'POST',
-      body: {
-        title: title.value,
-        description: description.value || undefined,
-        priority: priority.value,
-        dueDate: dueDate.value ? new Date(dueDate.value).toISOString() : undefined,
-        categoryId: selectedCategoryId.value || undefined,
-      },
+    await useCreateReminder({
+      title: title.value,
+      description: description.value || undefined,
+      priority: priority.value,
+      dueDate: dueDate.value ? new Date(dueDate.value).toISOString() : undefined,
+      categoryId: selectedCategoryId.value || undefined,
     })
     await router.push('/reminders')
   } catch (err: unknown) {
@@ -75,7 +69,7 @@ async function handleSubmit() {
     </UPageHeader>
 
     <UPageSection :ui="{ wrapper: 'py-8 max-w-2xl mx-auto' }">
-      <form class="space-y-6" @submit.prevent="handleSubmit">
+      <UForm class="space-y-6" @submit="handleSubmit">
         <UFormField label="Title" required>
           <UInput
             v-model="title"
@@ -141,7 +135,7 @@ async function handleSubmit() {
             variant="ghost"
           />
         </div>
-      </form>
+      </UForm>
     </UPageSection>
   </UPage>
 </template>

@@ -1,11 +1,10 @@
 import { describe, it, expect, vi } from 'vitest'
+import { categories, reminders } from '../../server/database/app-schema'
 
-// Mock the layer schema import
+// Mock the layer schema import — vi.mock calls are hoisted by vitest
 vi.mock('#layer/server/database/schema', () => ({
   users: { id: 'id' },
 }))
-
-import { categories, reminders } from '../../server/database/app-schema'
 
 describe('app-schema', () => {
   describe('categories table', () => {

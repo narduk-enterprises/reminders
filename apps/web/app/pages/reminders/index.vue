@@ -11,8 +11,8 @@ useWebPageSchema({
   description: `Manage your reminders, categories, and stay on top of what matters.`,
 })
 
-const selectedStatus = ref<string | undefined>(undefined)
-const selectedPriority = ref<string | undefined>(undefined)
+const selectedStatus = ref<string | undefined>()
+const selectedPriority = ref<string | undefined>()
 const searchQuery = ref('')
 const currentPage = ref(1)
 
@@ -24,21 +24,8 @@ const queryParams = computed(() => ({
   ...(searchQuery.value && { search: searchQuery.value }),
 }))
 
-const { data: remindersData, refresh: refreshReminders } = await useAsyncData(
-  'reminders-list',
-  () => $fetch('/api/reminders', { query: queryParams.value }),
-  { watch: [queryParams] },
-)
-
-const { data: statsData, refresh: refreshStats } = await useAsyncData(
-  'reminders-stats',
-  () => $fetch('/api/reminders/stats'),
-)
-
-const { data: categoriesData } = await useAsyncData(
-  'categories-list',
-  () => $fetch('/api/categories'),
-)
+const { data: remindersData, refresh: refreshReminders } = useReminders(queryParams)
+const { data: statsData, refresh: refreshStats } = useReminderStats()
 
 const statusOptions = [
   { label: 'All', value: undefined },
@@ -70,8 +57,8 @@ const statusIcons: Record<string, string> = {
   cancelled: 'i-lucide-x-circle',
 }
 
-async function toggleReminder(id: string) {
-  await $fetch(`/api/reminders/${id}/toggle`, { method: 'POST' })
+async function handleToggle(id: string) {
+  await useToggleReminder(id)
   await Promise.all([refreshReminders(), refreshStats()])
 }
 
@@ -181,7 +168,7 @@ function setFilter(status?: string, priority?: string) {
             variant="ghost"
             :color="reminder.status === 'completed' ? 'success' : 'neutral'"
             size="sm"
-            @click="toggleReminder(reminder.id)"
+            @click="handleToggle(reminder.id)"
           />
 
           <div class="flex-1 min-w-0">
