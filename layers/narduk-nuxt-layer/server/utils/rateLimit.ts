@@ -21,9 +21,7 @@ export type LayerRateLimitBindingName =
   | 'RL_240'
   | 'RL_300'
 
-export type LayerRateLimitEnv = Partial<
-  Record<LayerRateLimitBindingName, CloudflareRateLimitBinding>
->
+export type LayerRateLimitEnv = Partial<Record<LayerRateLimitBindingName, CloudflareRateLimitBinding>>
 
 /**
  * Lightweight in-memory sliding-window rate limiter.

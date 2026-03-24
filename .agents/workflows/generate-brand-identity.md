@@ -31,14 +31,14 @@ screams "I'm a scaffold." Purge it completely before building the new identity.
 Search the entire `apps/web/` directory for these strings and replace or remove
 every occurrence:
 
-| Search For                         | What It Is                               | Action                           |
-| ---------------------------------- | ---------------------------------------- | -------------------------------- |
-| `Nuxt 4`                           | Template name in text/headings           | Replace with app name            |
-| `N4`                               | Template logo/icon reference             | Delete and replace with app logo |
-| `Demo`                             | Placeholder qualifier                    | Remove or replace                |
-| `Template`                         | Scaffold reference                       | Remove or replace                |
-| App's scaffold domain              | Template domain (in UI text, not config) | Replace with custom app domain   |
-| Generic template accent references | Default template accent                  | Will be replaced in Phase 2      |
+| Search For                                    | What It Is                               | Action                           |
+| --------------------------------------------- | ---------------------------------------- | -------------------------------- |
+| `Nuxt 4`                                      | Template name in text/headings           | Replace with app name            |
+| `N4`                                          | Template logo/icon reference             | Delete and replace with app logo |
+| `Demo`                                        | Placeholder qualifier                    | Remove or replace                |
+| `Template`                                    | Scaffold reference                       | Remove or replace                |
+| App's scaffold domain                         | Template domain (in UI text, not config) | Replace with custom app domain   |
+| Generic template accent references            | Default template accent                  | Will be replaced in Phase 2      |
 
 ### 0b. Header/Navbar Decision
 
@@ -235,11 +235,10 @@ Before touching any design file, **immerse yourself** in the project.
    | 100 | `amber`   | `neutral` | Chewy        | Cabin     |
 
 5. **Lock in a creative direction.** Decide on:
-   - **Primary Color** — a Nuxt UI / Tailwind color name (e.g. `sky`, `amber`).
-     Pick something that fits the emotional register.
+   - **Primary Color** — a Nuxt UI / Tailwind color name (e.g. `sky`, `amber`). Pick something that fits the emotional register.
    - **Neutral Color** — the complementary gray scale (`slate`, `zinc`, `stone`,
      `neutral`, `gray`).
-   - **Display Font** — for headings. Must be from Google Fonts.
+   - **Display Font** — for headings. Must be from Google Fonts. 
    - **Body Font** — for text. Must be from Google Fonts. Prioritize
      readability. Pick something that gives the app its own voice.
    - **Shape Language** — border radius scale, shadow intensity, spacing rhythm.
@@ -271,11 +270,9 @@ export default defineAppConfig({
 
 ### 2b. Set Tailwind v4 Theme Overrides
 
-Create or update `apps/web/app/assets/css/brand.css` (imported by `main.css`).
+Create or update `apps/web/app/assets/css/brand.css` (imported by `main.css`). 
 
-> _Note: Do not hardcode hex colors for standard UI elements. Rely entirely on
-> Tailwind v4 CSS variables (e.g. `var(--color-primary-500)`) and semantic
-> classes (`text-primary`, `bg-neutral-100`) as enforced by Nuxt UI 4._
+> _Note: Do not hardcode hex colors for standard UI elements. Rely entirely on Tailwind v4 CSS variables (e.g. `var(--color-primary-500)`) and semantic classes (`text-primary`, `bg-neutral-100`) as enforced by Nuxt UI 4._
 
 ```css
 @theme {
@@ -407,9 +404,7 @@ pnpm generate:favicons -- \
   --bg="<background-hex>"
 ```
 
-> _Note: The favicon generator requires raw hex codes. You must manually resolve
-> your chosen Tailwind primary color (e.g. `sky-500` -> `#0ea5e9`) to its hex
-> equivalent for the `--color` flag._
+> _Note: The favicon generator requires raw hex codes. You must manually resolve your chosen Tailwind primary color (e.g. `sky-500` -> `#0ea5e9`) to its hex equivalent for the `--color` flag._
 
 This produces:
 
